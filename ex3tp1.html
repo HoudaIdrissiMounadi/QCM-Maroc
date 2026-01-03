@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercice 3 - Fonction trier()</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 500px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+        h1 {
+            color: #c41e3a;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            font-size: 16px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #c41e3a;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #f0f0f0;
+            border-radius: 5px;
+        }
+        .result p {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1> Fonction trier()</h1>
+    
+    <p>Écrire une fonction appelée <strong>trier()</strong> qui prend une liste (array) de nombres et retourne la liste triée.</p>
+
+    <input type="text" id="nombres" placeholder="Entrez des nombres séparés par des virgules (ex: 5, 2, 8, 1, 9)">
+    <button onclick="trierListe()">Trier</button>
+
+    <div class="result" id="resultat"></div>
+
+    <script>
+        // Fonction trier() qui prend un array et retourne un array trié
+        function trier(array) {
+            return array.sort(function(a, b) {
+                return a - b;
+            });
+        }
+
+        function trierListe() {
+            const input = document.getElementById('nombres').value;
+            const resultat = document.getElementById('resultat');
+            
+            // Convertir la saisie en array de nombres
+            const nombres = input.split(',').map(function(n) {
+                return parseFloat(n.trim());
+            });
+            
+            // Vérifier si tous les éléments sont des nombres valides
+            const tousValides = nombres.every(function(n) {
+                return !isNaN(n);
+            });
+            
+            if (!tousValides || nombres.length === 0) {
+                resultat.innerHTML = '<p style="color: red;">Veuillez entrer des nombres valides séparés par des virgules</p>';
+                return;
+            }
+            
+            // Appeler la fonction trier()
+            const listeTriee = trier(nombres);
+            
+            resultat.innerHTML = `
+                <p><strong>Liste originale :</strong> [${nombres.join(', ')}]</p>
+                <p><strong>Liste triée :</strong> [${listeTriee.join(', ')}]</p>
+            `;
+        }
+    </script>
+</body>
+</html>
