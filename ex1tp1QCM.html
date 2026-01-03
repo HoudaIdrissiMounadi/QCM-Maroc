@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>QCM - Villes du Maroc</title>
+
+  <!-- Police moderne -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #f7f7f7, #ececec);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      min-height: 100vh;
+      margin: 0;
+      padding: 30px;
+    }
+
+    h1 {
+      color: #c0392b;
+      text-align: center;
+      font-size: 2.2em;
+      margin-bottom: 30px;
+    }
+
+    .container {
+      background-color: white;
+      width: 90%;
+      max-width: 600px;
+      padding: 25px 35px;
+      border-radius: 16px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+      transition: 0.3s ease;
+    }
+
+    .question {
+      margin-bottom: 20px;
+      border-bottom: 1px solid #ddd;
+      padding-bottom: 15px;
+    }
+
+    .question:last-child {
+      border-bottom: none;
+    }
+
+    p {
+      font-weight: 600;
+      color: #2c3e50;
+    }
+
+    label {
+      display: block;
+      margin: 5px 0;
+      color: #555;
+      cursor: pointer;
+    }
+
+    input[type="checkbox"],
+    input[type="radio"] {
+      margin-right: 8px;
+      transform: scale(1.1);
+    }
+
+    .btns {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-top: 25px;
+    }
+
+    button {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 10px;
+      background-color: #e74c3c;
+      color: white;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.3s, transform 0.2s;
+    }
+
+    button:hover {
+      background-color: #c0392b;
+      transform: translateY(-2px);
+    }
+
+    footer {
+      margin-top: 40px;
+      font-size: 0.9em;
+      color: #777;
+    }
+
+    footer a {
+      color: #c0392b;
+      text-decoration: none;
+    }
+    footer a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+
+<body>
+
+  <h1> QCM : Les villes du Maroc</h1>
+
+  <div class="container">
+    <form id="qcm">
+      <div class="question">
+        <p>Q1 - Parmi ces villes, lesquelles sont marocaines ?</p>
+        <label><input type="checkbox" name="M1" value="casa"> Casablanca</label>
+        <label><input type="checkbox" name="M1" value="fes"> Fès</label>
+        <label><input type="checkbox" name="M1" value="lion"> Lyon</label>
+      </div>
+
+      <div class="question">
+        <p>Q2 - Quelles villes sont situées dans le sud du Maroc ?</p>
+        <label><input type="checkbox" name="M2" value="agadir"> Agadir</label>
+        <label><input type="checkbox" name="M2" value="tetouan"> Tétouan</label>
+        <label><input type="checkbox" name="M2" value="ouarzazate"> Ouarzazate</label>
+      </div>
+
+      <div class="question">
+        <p>Q3 - Quelles de ces villes sont côtières ?</p>
+        <label><input type="checkbox" name="M3" value="essaouira"> Essaouira</label>
+        <label><input type="checkbox" name="M3" value="meknes"> Meknès</label>
+        <label><input type="checkbox" name="M3" value="safi"> Safi</label>
+      </div>
+
+      <div class="question">
+        <p>Q4 - Quelle est la plus grande ville du Maroc par sa population ?</p>
+        <label><input type="radio" name="U1" value="rabat"> Rabat</label>
+        <label><input type="radio" name="U1" value="casa"> Casablanca</label>
+        <label><input type="radio" name="U1" value="fes"> Fès</label>
+      </div>
+
+      <div class="question">
+        <p>Q5 - Quelle est la capitale du Maroc ?</p>
+        <label><input type="radio" name="U2" value="casa"> Casablanca</label>
+        <label><input type="radio" name="U2" value="marrakech"> Marrakech</label>
+        <label><input type="radio" name="U2" value="rabat"> Rabat</label>
+      </div>
+    </form>
+
+    <div class="btns">
+      <button type="button" onclick="initialiser()">Réinitialiser</button>
+      <button type="button" onclick="corriger()">Corrigé</button>
+      <button type="button" onclick="resultat()">Résultat</button>
+    </div>
+  </div>
+
+  <footer>
+    <p>© 2025 - Réalisé par <a href="https://github.com/">Houda Idrissi Mounadi</a></p>
+  </footer>
+
+  <script>
+    function initialiser() {
+      const inputs = document.querySelectorAll('input');
+      inputs.forEach(i => i.checked = false);
+      alert("Le QCM a été réinitialisé !");
+    }
+
+    function corriger() {
+      let win = window.open("", "", "width=400,height=300");
+      win.document.write("<h2>Corrigé du QCM</h2>");
+      win.document.write("<p>Q1 : Casablanca, Fès</p>");
+      win.document.write("<p>Q2 : Agadir, Ouarzazate</p>");
+      win.document.write("<p>Q3 : Essaouira, Safi</p>");
+      win.document.write("<p>Q4 : Casablanca</p>");
+      win.document.write("<p>Q5 : Rabat</p>");
+    }
+
+    function resultat() {
+      let score = 0;
+
+      const q1 = Array.from(document.querySelectorAll('input[name=\"M1\"]:checked')).map(x => x.value);
+      if (q1.includes("casa") && q1.includes("fes") && !q1.includes("lion")) score++;
+
+      const q2 = Array.from(document.querySelectorAll('input[name=\"M2\"]:checked')).map(x => x.value);
+      if (q2.includes("agadir") && q2.includes("ouarzazate") && !q2.includes("tetouan")) score++;
+
+      const q3 = Array.from(document.querySelectorAll('input[name=\"M3\"]:checked')).map(x => x.value);
+      if (q3.includes("essaouira") && q3.includes("safi") && !q3.includes("meknes")) score++;
+
+      if (document.querySelector('input[name=\"U1\"]:checked')?.value === "casa") score++;
+      if (document.querySelector('input[name=\"U2\"]:checked')?.value === "rabat") score++;
+
+      alert(`Ton score est : ${score}/5`);
+    }
+  </script>
+</body>
+</html>
